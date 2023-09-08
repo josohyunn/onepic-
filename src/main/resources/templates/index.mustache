@@ -1,0 +1,98 @@
+{{>/layout/header}}
+<div class="main-container">
+    <div>
+        <div class="container mt-3" style="align-self: center;">
+            <img src="/images/m_main_banner.png" class="rounded" alt="Cinque Terre" width="100%">
+        </div>
+
+        <div class="container mt-3" style="align-self: center;">
+            <div style="margin-top: 25px; display: flex; margin-right: 500px;align-self: center; ">
+                <h5 style="margin: 8px;;color: var(--font_01);">직무</h5>
+                <div>
+                    <select id="open" class="form-control">
+                        <option value="1">전체</option>
+                        <option value="2">백엔드</option>
+                        <option value="3">프론트엔드</option>
+                        <option value="4">앱개발</option>
+
+                    </select>
+                </div>
+            </div>
+            <hr class="line">
+
+            <div class="" style="display: flex; margin-right: 600px;">
+
+                <h5 style="margin: 8px;color: var(--font_01);">지역</h5>
+                <div class="">
+                    <select id="open" class="form-control">
+                        <option value="1">서울</option>
+                        <option value="2">부산</option>
+                        <option value="3">경기</option>
+                        <option value="4">대전</option>
+
+                    </select>
+                </div>
+
+                <h5 style="margin: 8px; margin-left: 25px; color: var(--font_01);">학력</h5>
+                <div class="">
+                    <select id="career" class="form-control">
+                        <option value="1">무관</option>
+                        <option value="2">고졸</option>
+                        <option value="3">대졸</option>
+                        <option value="4">대학원졸이상</option>
+
+                    </select>
+                </div>
+
+            </div>
+        </div>
+
+        <hr class="line">
+
+        <br>
+
+        <h6>총 2,111건</h6>
+        <hr class="line">
+
+
+
+        <div class="grid-box" id="notice-box">
+
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    render();
+
+    async function render() {
+        let responseBody = await download();
+        responseBody.forEach((notice) => {
+            $("#notice-box").append(noticeBox(notice));
+        });
+    }
+
+    function noticeBox(notice) {
+        return `<div class="card" style="width:250px">
+                <img class="card-img-top" src="${notice.userImg}" alt="Card image" style="height:120px; width:130">
+                <div class="card-body">
+                    <h5 class="card-title">${notice.bizName}</h4>
+                        <p class="card-text">${notice.workField}</p>
+                        <p class="card-text">${notice.address} ${notice.address2}</p>
+                </div>
+            </div>`;
+    }
+    async function download() {
+        let response = await fetch("api/searchNotice");
+        let responseBody = await response.json();
+
+        return responseBody;
+    }
+
+</script>
+
+
+{{>/layout/footer}}

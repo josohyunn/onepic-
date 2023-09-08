@@ -1,0 +1,145 @@
+{{>/layout/header}}
+
+<div class="main-container" style="display: flex; flex-direction: column;">
+    <div class="box" style="width: 700px; margin-top: 80px;">
+        <form action="/bizUserUpdate" method="post" name="BizUpdateDTO" enctype="multipart/form-data">
+            <div style="text-align: center; margin-top: 50px;">
+                {{! <img src="/images/베이직2.jpg" style="border-radius: 50%; width: 180px; height: 180px;" id="preview">
+                }}
+                <img src="/upload/{{userInfo.picUrl}}" style="border-radius: 50%; width: 180px; height: 180px; "
+                    id="preview">
+                <br>
+                <input type="file" name="pic" style="margin-left: 70px;" onchange="changePic(event)" />
+                <h2>{{userInfo.username}}담당자님, 안녕하세요.</h2>
+            </div>
+
+            <div class="body-container">
+                <div style="margin-left: 50px; margin-right: 100px;">
+                    <br>
+                    <div>계정 관리</div>
+                    <div style="color: #7F7F7F;">서비스에서 사용하는 내 계정 정보를 관리할 수 있습니다.</div>
+                    <br>
+                    <div class="body-text">
+                        <div class="body-head">
+                            비밀번호
+                        </div>
+                        <div class="body-main">
+                            <input class="input-box" contenteditable="true" placeholder="baronjae@gmail.com"
+                                name="password" value="{{userInfo.password}}">
+                            </input>
+                        </div>
+                    </div>
+                    <hr class="line" style="margin-top: 0px;">
+                    <div class="body-text">
+                        <div class="body-head">
+                            비밀번호 확인
+                        </div>
+                        <div class="body-main">
+                            <input class="input-box" contenteditable="true"
+                                placeholder="위에두칸 일치여부만 확인해서 일치 불일치 출력, 일치시 text 색상 그린, 불일치시 레드">
+                            </input>
+                        </div>
+                    </div>
+                    <hr class="line" style="margin-top: 0px;">
+                    <div class="body-text">
+                        <div class="body-head">
+                            회사명
+                        </div>
+                        <div class="body-main">
+                            <input class="input-box" contenteditable="true" placeholder="그린" name="bizname"
+                                value="{{userInfo.bizname}}">
+                            </input>
+                        </div>
+                    </div>
+                    <hr class="line" style="margin-top: 0px;">
+                    <div class="body-text">
+                        <div class="body-head">
+                            담당자명
+                        </div>
+                        <div class="body-main">
+                            <input class="input-box" contenteditable="true" placeholder="진성훈" name="username"
+                                value="{{userInfo.username}}">
+                            </input>
+                        </div>
+                    </div>
+                    <hr class="line" style="margin-top: 0px;">
+                    <div class="body-text">
+                        <div class="body-head">
+                            담당자 연락처
+                        </div>
+                        <div class="body-main">
+                            <input class="input-box" contenteditable="true" placeholder="010-9471-9693" name="tel"
+                                value="{{userInfo.tel}}">
+                            </input>
+                        </div>
+                    </div>
+                    <hr class="line" style="margin-top: 0px;">
+                    <div class="body-text">
+                        <div class="body-head">
+                            회사주소
+                        </div>
+                        <div class="body-main">
+                            <input class="input-box" contenteditable="true" placeholder="부산 진구 중앙대로 688, 305호"
+                                name="address" value="{{userInfo.address}}">
+                            </input>
+                        </div>
+                    </div>
+                    <hr class="line" style="margin-top: 0px;">
+                    <div class="body-text">
+                        <div class="body-head">
+                            회사상세주소
+                        </div>
+                        <div class="body-main">
+                            <input class="input-box" contenteditable="true" placeholder="부산 진구 중앙대로 688, 305호"
+                                name="address2" value="{{userInfo.address2}}">
+                            </input>
+                        </div>
+                    </div>
+                    <hr class="line" style="margin-top: 0px;">
+                </div>
+                <br>
+                <br>
+                <div style="display: flex; justify-content: center;">
+                    <button type="submit" class="button">수정완료</button>
+                </div>
+            </div>
+        </form>
+        <br>
+    </div>
+
+    <br>
+    <div class="box" style="width: 700px; margin-bottom: 50px;">
+        <div style="margin-left: 50px; margin-top: 30px;">개인 정보 보호</div>
+        <br>
+        <div style="margin-left: 50px; color: #7F7F7F;">서비스에서 사용하는 내 계정 정보를 관리할 수 있습니다.</div>
+        <br>
+        <br>
+        <div style="display: flex; justify-content: center;">
+            <a href="/loginForm">
+                <button class="button">탈퇴하기</button>
+            </a>
+
+        </div>
+    </div>
+    <br>
+</div>
+<script>
+    function changePic(e1) {
+        let f = e1.srcElement.files[0];
+        console.log(f.type);
+        if (!f.type.match("image.*")) {
+            alert("이미지를 등록해주세요");
+            return;
+        }
+
+        let reader = new FileReader();
+        reader.onload = function (e2) { // 파일이 다 읽어지면 콜백됨
+            let previewEl = document.querySelector("#preview");
+            previewEl.setAttribute("src", e2.target.result);
+        }
+        reader.readAsDataURL(f); // 파일 읽기 onload()
+    }
+</script>
+</body>
+
+{{>layout/footer}}
